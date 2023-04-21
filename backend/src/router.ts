@@ -1,4 +1,6 @@
+
 import { Router, Request, Response } from "express";
+import { AddUserController } from "./controllers/addUserServiceController";
 
 const router = Router();
 
@@ -7,5 +9,7 @@ router.get("/", (req: Request, res: Response) => {
         ok: true
     });
 });
+
+router.post("/add/user", new AddUserController().handle)
 
 export { router }
