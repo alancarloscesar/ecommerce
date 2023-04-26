@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { connection } from "../database/connectionFactory";
 import { Locale, format, differenceInYears, formatDistance } from "date-fns"
 import { ptBR } from "date-fns/locale";
+import { hash } from "bcryptjs";
 
 interface userProps {
   name: string,
@@ -40,7 +41,9 @@ export class AddUserService {
 
       } else {
 
-        let sql = `INSERT INTO user (name, gender, birth, cpf, phone, email, password) VALUES ('${name}', '${gender}', '${brith}', '${cpf}', '${phone}', '${email}', '${password}')`;
+        const passwordHash = await hash(password, 8)
+
+        let sql = `INSERT INTO user (name, gender, birth, cpf, phone, email, password) VALUES ('${name}', '${gender}', '${brith}', '${cpf}', '${phone}', '${email}', '${passwordHash}')`;
 
         let currentDate = format(new Date(), 'yyyy,MM,dd', { locale: ptBR })
         let birthDate = format(new Date(`${brith}`), 'yyyy,MM,dd', { locale: ptBR })
@@ -58,14 +61,7 @@ export class AddUserService {
 
       }
     }
-    
-    
-    // if (age >= 18) {
-      //   return console.log("maior");
-      // } else {
-      //   return console.log("menorzaooo");
-      // }
-      
+          
       if (name === "" || gender === "" || brith === "" || cpf === "" || phone === "" || email === "" || password === "") {
         throw new Error("Preencha todos os campos!!!")
       }
@@ -84,8 +80,3 @@ export class AddUserService {
     
   }
 }
-
-//verificar user iguais - " okkk
-//verificar idade >18 anos okkkkkk
-//campos obrigatorios
-//criptografar senhas
