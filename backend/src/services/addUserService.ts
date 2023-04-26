@@ -57,8 +57,6 @@ export class AddUserService {
         }
         return global.msg = { error: "Precisa ser maior de idade para o cadastro!" }
 
-        // console.log(`salvarrrrrrrr`)
-
       }
     }
           
