@@ -8,4 +8,6 @@ const connection = mysql.createConnection({
   database: `${process.env.DATABASEDB}`
 });
 
+// connection.end();
+
 export { connection }

@@ -1,28 +1,91 @@
 
 import { config } from "dotenv";
 import { connection } from "../database/connectionFactory";
+import { Locale, format, differenceInYears, formatDistance } from "date-fns"
+import { ptBR } from "date-fns/locale";
 
 interface userProps {
-    name: string,
-    gender: string,
-    brith: string,
-    cpf: string,
-    phone: string,
-    email: string,
-    password: string
+  name: string,
+  gender: string,
+  brith: string,
+  cpf: string,
+  phone: string,
+  email: string,
+  password: string
 }
 
 export class AddUserService {
-    async execute({ name, gender, brith, cpf, phone, email, password }: userProps) {
+  async execute({ name, gender, brith, cpf, phone, email, password }: userProps) {
+
+    connection.connect(function (err) {
+      if (err) throw err;
+
+      connection.query(`SELECT * FROM user WHERE name="${name}" OR email="${email}" OR cpf="${cpf}"`, (err, result: any) => {
+        if (err) throw err;
+
+        getResult(result)
+
+      })
+    })
+
+    const getResult = async function (item: any) {
+
+      let convertItem = Object.keys(item).length;
+
+      if (convertItem > 0) {//se tiver user
+
+        // console.log("userrrr")
+        global.msg = { error: "Usuário já cadastrado!" }
+        return global.msg
+
+      } else {
+
         let sql = `INSERT INTO user (name, gender, birth, cpf, phone, email, password) VALUES ('${name}', '${gender}', '${brith}', '${cpf}', '${phone}', '${email}', '${password}')`;
-        const useradd = await connection.execute(sql)
 
-        return useradd;
+        let currentDate = format(new Date(), 'yyyy,MM,dd', { locale: ptBR })
+        let birthDate = format(new Date(`${brith}`), 'yyyy,MM,dd', { locale: ptBR })
 
-        //verificar user iguais - SELECT * FROM user WHERE name="ALAN CARLOS TOMAZ CÉSAR" OR email="alancarloscesar@gmail.com" OR cpf="23456789012"
-        //verificar idade >18 anos
-        //campos obrigatorios
-        //
+        let age = differenceInYears(new Date(currentDate), new Date(birthDate))
 
+        if (age >= 18) {
+          await connection.execute(sql);
+          global.msg = { success: "Usuário cadastrado com sucesso!" }
+          return global.msg
+        }
+        return global.msg = { error: "Precisa ser maior de idade para o cadastro!" }
+
+        // console.log(`salvarrrrrrrr`)
+
+      }
     }
+    
+    
+    // if (age >= 18) {
+      //   return console.log("maior");
+      // } else {
+      //   return console.log("menorzaooo");
+      // }
+      
+      if (name === "" || gender === "" || brith === "" || cpf === "" || phone === "" || email === "" || password === "") {
+        throw new Error("Preencha todos os campos!!!")
+      }
+      
+      let currentDate = format(new Date(), 'yyyy,MM,dd', { locale: ptBR })
+      let birthDate = format(new Date(`${brith}`), 'yyyy,MM,dd', { locale: ptBR })
+      
+      let age = differenceInYears(new Date(currentDate), new Date(birthDate))
+      console.log("Age: " + age)
+      
+      if (age >= 18) {
+        return global.msg;
+      } else {
+      throw new Error("Precisa ser maior de idade para o cadastro!")
+    }
+    
+  }
 }
+
+//verificar user iguais - " okkk
+//verificar idade >18 anos okkkkkk
+//campos obrigatorios
+//criptografar senhas
