@@ -8,7 +8,7 @@ export class AddUserController {
 
         const { name, gender, brith, cpf, phone, email, password } = req.body;
 
-        await service.execute({
+        const response = await service.execute({
             name,
             gender,
             brith,
@@ -18,9 +18,9 @@ export class AddUserController {
             password
         })
 
-        return res.status(201).json({
-            Sucess: "User created successfuly!!!"
-        });
+        return res.status(201).json(response);
+
+        
 
 
     }

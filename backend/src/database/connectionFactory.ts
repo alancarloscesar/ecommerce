@@ -1,11 +1,13 @@
 require("dotenv").config()
-import mysql from "mysql2";
+const connection = require('mysql2-promise')();
 
-const connection = mysql.createConnection({
+connection.configure({
   host: `${process.env.HOSTDB}`,
   user: `${process.env.USERDB}`,
   password: `${process.env.PASSWORDDB}`,
   database: `${process.env.DATABASEDB}`
-});
+})
+
+// connection.end();
 
 export { connection }
