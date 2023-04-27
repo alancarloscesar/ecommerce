@@ -43,7 +43,7 @@ export class AddUserService {
 
         const passwordHash = await hash(password, 8)
 
-        let sql = `INSERT INTO user (name, gender, birth, cpf, phone, email, password) VALUES ('${name}', '${gender}', '${brith}', '${cpf}', '${phone}', '${email}', '${passwordHash}')`;
+        let sql = `INSERT INTO user (name, gender, birth, cpf, phone, email, password) VALUES ('${name}', '${gender}', '${brith}', '${cpf}', '${phone}', '${email}', '${password}')`;
 
         let currentDate = format(new Date(), 'yyyy,MM,dd', { locale: ptBR })
         let birthDate = format(new Date(`${brith}`), 'yyyy,MM,dd', { locale: ptBR })
