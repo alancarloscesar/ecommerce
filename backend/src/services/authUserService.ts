@@ -19,8 +19,8 @@ export class AuthUserService {
             return users;
         });
      
-        console.log(query)
+        console.log(query);
 
-        return query
+        return query;
     }
 }
