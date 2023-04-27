@@ -19,10 +19,7 @@ export class AuthUserService {
             return users;
         });
      
- 
         console.log(query)
-
-
 
         return query
     }
