@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AddUserService } from "../services/addUserService";
-import mysql from "mysql2"
+
 
 export class AddUserController {
     async handle(req: Request, res: Response) {
