@@ -8,11 +8,11 @@ const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
     return res.json({
-        ok: true
+        "Ecommerce": "backend da aplicação"
     });
 });
 
 router.post("/add/user", new AddUserController().handle)
-router.post("/auth",new authUserController().handle)
+router.post("/auth", new authUserController().handle)
 
 export { router }

@@ -6,12 +6,12 @@ export class AddUserController {
     async handle(req: Request, res: Response) {
         const service = new AddUserService();
 
-        const { name, gender, brith, cpf, phone, email, password } = req.body;
+        const { name, gender, birth, cpf, phone, email, password } = req.body;
 
         const response = await service.execute({
             name,
             gender,
-            brith,
+            birth,
             cpf,
             phone,
             email,
