@@ -2,38 +2,49 @@ const nodemailer = require("nodemailer");
 
 export async function mailTransporte() {
 
-    const CLIENT_ID = "966412077609-n4udpj12rvt34dj0agea8go0st8irb36.apps.googleusercontent.com"
-
-    const CLIENT_SECRET = "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"
-
     try {
 
         const transporter = nodemailer.createTransport({
 
-            service: "gmail",
+            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
-                type: "OAuth2",
-                user: "alancarloscesarcw@gmail.com",
-                clientId: CLIENT_ID,
-                clientSecret: CLIENT_SECRET,
-                accessToken: "ya29.a0AWY7CklXe1BCOLn8Rm86Ks6ZetttTUxzVM1mWV9U64InMmxusFpQohz6TBVArsV0RLYp2EFEzvCkoG1OY4SKg6Rvq-t4_R1Y-5q8gp9YdT0DrntK6fnQ-Mx5a_cBs9Ld3M3ExcO3PBFVsITTd651TlYLwk8OIlcaCgYKAe0SAQ8SFQG1tDrpjPEni5a9LMa5WZs6WKXR3Q0166",
-                pass: "carolfrota0221"
-            }
+                user: 'alancarloscesarob@gmail.com',
+                pass: 'zqmccavkbjufujjv',
+            },
         });
 
         const mailOptions = {
-            from: "Ecommerce <alancarloscesarcw@gmail.com>",
-            to: "alancarloscesar@gmail.com",
-            subject: "aqui vai o titulo do email",
+            from: "Ecommerce - Recuperação de Senha <alancarloscesarcw@gmail.com>",
+            to: "carolfrotah@gmail.com",
+            subject: "Solicitação de Recuperação de Senha",
             text: " sou o corpo do email....",
-            html: "<h1>SOu o html do email, personalize ... </h2>"
+            html: `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <!-- <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title> -->
+            </head>
+            <body>
+                <h1 class="teste" style="background-color: #ff0;">Testando html do email</h1>
+                
+            </body>
+            </html>
+            `
         }
 
         const result = await transporter.sendMail(mailOptions)
+        console.log(result)
 
         return result;
 
-        // https://www.youtube.com/watch?v=vjv6vkAVNYU&t=682s
+        // configemail
+        // https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted
 
     } catch (error) {
         console.log(error)
