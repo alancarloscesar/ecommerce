@@ -1,7 +1,6 @@
 
 import { compare } from "bcryptjs";
-import prismaClient from "../prisma";
-import { throws } from "assert";
+import prismaClient from "../../prisma";
 
 interface authData {
     email: string,

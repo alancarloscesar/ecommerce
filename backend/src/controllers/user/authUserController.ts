@@ -1,5 +1,5 @@
 
-import { AuthUserService } from "../services/authUserService";
+import { AuthUserService } from "../../services/user/authUserService";
 import { Request, Response } from "express-serve-static-core";
 
 export class authUserController {

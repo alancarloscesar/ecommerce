@@ -19,6 +19,7 @@ export async function mailTransporte() {
         const mailOptions = {
             from: "Ecommerce - Recuperação de Senha <alancarloscesarob@gmail.com>",
             to: "alancarloscesar@gmail.com",
+            // to: "otaviofigueredoalves93@gmail.com",
             subject: "Solicitação de Recuperação de Senha",
             text: " sou o corpo do email....",
             html: `

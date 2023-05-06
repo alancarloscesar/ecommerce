@@ -2,7 +2,7 @@
 import { Locale, format, differenceInYears, formatDistance } from "date-fns"
 import { ptBR } from "date-fns/locale";
 import { hash } from "bcryptjs";
-import prismaClient from "../prisma";
+import prismaClient from "../../prisma";
 
 interface userProps {
   name: string,
