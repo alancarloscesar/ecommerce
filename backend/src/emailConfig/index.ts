@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
+import { Request, Response } from "express";
 
-export async function mailTransporte() {
+export async function mailTransporte(req:Request, res:Response) {
 
     try {
 
@@ -110,7 +111,10 @@ text-align: center;
         const result = await transporter.sendMail(mailOptions)
         console.log(result)
 
-        return result;
+
+    
+        return res.end();
+
 
         // configemail
         // https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted

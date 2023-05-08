@@ -1,6 +1,7 @@
 
 import { compare } from "bcryptjs";
 import prismaClient from "../../prisma";
+import { sign } from "jsonwebtoken"
 
 interface authData {
     email: string,
@@ -37,8 +38,25 @@ export class AuthUserService {
         if (!passwordMatch) {
             throw new Error("Email/Cpf/Senha incorretos!")
         }
-        const yes = "Login efetuado com sucesso"
 
-        return yes
+        const token = sign(
+            {
+                name: user.name as string,
+                email: user.email as string
+            },
+            process.env.JWT_SECRET,
+            {
+                subject: user.id.toString(),//so aceita id string
+                expiresIn: "30d"
+            }
+        )
+
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            token: token,
+        }
+
     }
 }
