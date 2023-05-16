@@ -8,13 +8,17 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { ThemeProvider } from '@mui/material';
 import { themeApp } from './themes/index.tsx';
+import { BrowserRouter } from "react-router-dom"
+import AppRoutes from './routes/index.tsx';
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ThemeProvider theme={themeApp}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        <AppRoutes />
+      </React.StrictMode>
+    </BrowserRouter>
   </ThemeProvider>
 )
 
