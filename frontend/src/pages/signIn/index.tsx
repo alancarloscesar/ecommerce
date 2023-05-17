@@ -1,6 +1,6 @@
 import "./style.css"
 import imgLogo from "../../assets/logo.jpeg"
-import { Grid, TextField, useTheme, Typography } from "@mui/material"
+import { Grid, TextField, useTheme, Typography, Box } from "@mui/material"
 import { Padding } from "@mui/icons-material"
 import ButtonEntry from "./button"
 
@@ -25,12 +25,19 @@ export default function SignIn() {
                 xl={12}
             >
 
-                <img src={imgLogo}
-                    alt="img logo"
-                    width={150}
-                    height={150}
-                    style={{ paddingLeft: 20 }}
-                />
+                <Box sx={{
+                    [theme.breakpoints.only('xs')]: {
+                        display: "none"
+                    },
+                }}>
+                    <img src={imgLogo}
+                        id="img"
+                        alt="img logo"
+                        width={150}
+                        height={150}
+                        style={{ paddingLeft: 20 }}
+                    />
+                </Box>
             </Grid >
 
             <form>
@@ -42,8 +49,17 @@ export default function SignIn() {
                     height: "76vh"
                 }}>
 
-                    <Typography>
-                        Olá, Bem vindo a nossa plataforma =)
+                    <Typography sx={{
+                        maxWidth: "90%",
+                        textAlign: "center",
+                        color: "secondary.main",
+                        fontWeight: "300",
+                        fontSize: 22,
+                        [theme.breakpoints.only('xs')]: {
+                            fontSize: 16
+                        },
+                    }}>
+                        Olá, Bem-vindo à nossa plataforma =)
                     </Typography>
 
                     <Grid container gap={4} p={3}
@@ -56,7 +72,7 @@ export default function SignIn() {
                             // backgroundColor: "#ff0",
 
                             [theme.breakpoints.only('xs')]: {
-                                width: "80vw"
+                                width: "100vw",
                             },
                             [theme.breakpoints.only('md')]: {
                                 width: "50vw"
@@ -75,12 +91,13 @@ export default function SignIn() {
                                 variant="outlined"
 
                                 sx={{
-                                    width: "100%"
+                                    width: "100%",
+
                                 }}
                             />
                         </Grid>
 
-                        <Grid item xs={12}  >
+                        <Grid item xs={12}>
                             <TextField
                                 id="standard-search"
                                 label="Senha: "
@@ -92,18 +109,43 @@ export default function SignIn() {
                             />
                         </Grid>
 
-                        <Typography>
-                           Esqueceu a senha?
-                        </Typography>
-                        <Typography>
-                            Criar conta
+
+                        <Grid item xs={12}>
+
+                            <ButtonEntry />
+
+                        </Grid>
+                        <Typography color={"primary.main"}
+                            sx={{
+                                '&:hover': {
+                                    textDecoration: "underline"
+                                }
+                            }}>
+                            <a href="/contato" target="_blank"
+                                style={{
+                                    textDecoration: "none",
+                                }}>
+                                Esqueceu a senha?
+                            </a>
                         </Typography>
 
-                        <Grid item xs={12} sx={{
-                            backgroundColor: "#ff0"
-                        }}>
-                            <ButtonEntry />
-                        </Grid>
+                        <Typography color={"secondary"}
+                            sx={{
+                                fontWeight: 500,
+                                fontSize: 18,
+                                '&:hover': {
+                                    textDecoration: "underline"
+                                }
+                            }}>
+                            <a href="/contato" target="_blank"
+                                style={{
+                                    textDecoration: "none",
+                                    color: "secondary"
+                                }}>
+                                Criar conta
+                            </a>
+                        </Typography>
+
                     </Grid>
                 </Grid>
 
