@@ -1,9 +1,19 @@
 import "./style.css"
+import { FormEvent } from "react";
 
-export default function ButtonEntry() {
+export default function ButtonEntry(props:any) {
+
+
+    function getValidateUserLogin(e: FormEvent) {
+        e.preventDefault()
+        console.log(props.validate)
+    }
+
     return (
+
+
         <>
-            <button>
+            <button onClick={getValidateUserLogin}>
                 <div className="svg-wrapper-1">
                     <div className="svg-wrapper">
                         <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

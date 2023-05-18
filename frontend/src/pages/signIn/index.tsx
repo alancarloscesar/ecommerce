@@ -1,12 +1,58 @@
 import "./style.css"
 import imgLogo from "../../assets/logo.jpeg"
-import { Grid, TextField, useTheme, Typography, Box } from "@mui/material"
-import { Padding } from "@mui/icons-material"
+import { Grid, TextField, useTheme, Typography, Box, Alert, Button } from "@mui/material"
 import ButtonEntry from "./button"
+import * as yup from 'yup';
+import { FormEvent, useState } from "react";
+import WarningIcon from '@mui/icons-material/Warning';
 
 export default function SignIn() {
 
     const theme = useTheme();
+
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    })
+
+    const [userValidate, setUserValidate] = useState<any | string>(user.email)
+
+    async function handleLogin(e: FormEvent) {
+        e.preventDefault();
+
+        validateInputs();
+
+        console.log(user.email)
+        console.log(user.password)
+        //aqui vai logar
+    }
+
+    async function validateInputs() {
+        const schema = yup.object().shape({
+            email: yup
+                .string()
+                .required("Campo email obrigatório")
+                .email("Email inválido"),
+
+            password: yup
+                .string()
+                .required("campo senha obrigatório")
+                .min(6, "Mínimo 6 caracteres")
+        })
+
+        await schema.validate({
+            email: user.email,
+            password: user.password
+        }).then((result) => {
+            setUserValidate(result)
+            // console.log(userValidate)
+        }).catch((err) => {
+            setUserValidate(err.errors);
+            // console.log(userValidate)
+        })
+    }
+
+
 
 
     return (
@@ -48,6 +94,7 @@ export default function SignIn() {
                     alignItems: "center",
                     height: "76vh"
                 }}>
+                    <p>{userValidate}</p>
 
                     <Typography sx={{
                         maxWidth: "90%",
@@ -89,6 +136,8 @@ export default function SignIn() {
                                 label="Email: "
                                 type="email"
                                 variant="outlined"
+                                value={user.email}
+                                onChange={(e) => setUser((prev) => ({ ...prev, email: e.target.value }))}
 
                                 sx={{
                                     width: "100%",
@@ -103,6 +152,8 @@ export default function SignIn() {
                                 label="Senha: "
                                 type="password"
                                 variant="outlined"
+                                value={user.password}
+                                onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
                                 sx={{
                                     width: "100%"
                                 }}
@@ -111,10 +162,10 @@ export default function SignIn() {
 
 
                         <Grid item xs={12}>
-
-                            <ButtonEntry />
-
+                            <ButtonEntry validate={userValidate} />
+                            <button onClick={handleLogin}>teste</button>
                         </Grid>
+
                         <Typography color={"primary.main"}
                             sx={{
                                 '&:hover': {
@@ -147,9 +198,21 @@ export default function SignIn() {
                         </Typography>
 
                     </Grid>
+
+                    <Alert
+                        color={"error"}
+                        variant="filled"
+                    >
+                        <Typography color="danger" fontWeight="200">
+                            This file was successfully deleted
+                        </Typography>
+                    </Alert>
+
+                    
                 </Grid>
 
             </form >
+
 
 
         </>
