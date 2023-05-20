@@ -1,6 +1,6 @@
 import "./style.css"
 import imgLogo from "../../assets/logo.jpeg"
-import { Grid, TextField, useTheme, Typography, Box, Alert, Button } from "@mui/material"
+import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, AlertTitle } from "@mui/material"
 import ButtonEntry from "./button"
 import * as yup from 'yup';
 import { FormEvent, useState } from "react";
@@ -9,6 +9,10 @@ import WarningIcon from '@mui/icons-material/Warning';
 export default function SignIn() {
 
     const theme = useTheme();
+
+    const [open, setOpen] = useState(false);
+
+
 
     const [user, setUser] = useState({
         email: "",
@@ -36,8 +40,8 @@ export default function SignIn() {
 
             password: yup
                 .string()
-                .required("campo senha obrigatório")
-                .min(6, "Mínimo 6 caracteres")
+                .required("Campo senha obrigatório")
+                .min(6, "A senha deve conter no mínimo 6 caracteres")
         })
 
         await schema.validate({
@@ -45,12 +49,15 @@ export default function SignIn() {
             password: user.password
         }).then((result) => {
             setUserValidate(result)
-            // console.log(userValidate)
         }).catch((err) => {
             setUserValidate(err.errors);
-            // console.log(userValidate)
         })
     }
+
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
 
 
 
@@ -199,16 +206,34 @@ export default function SignIn() {
 
                     </Grid>
 
-                    <Alert
-                        color={"error"}
-                        variant="filled"
-                    >
-                        <Typography color="danger" fontWeight="200">
-                            This file was successfully deleted
-                        </Typography>
-                    </Alert>
+                    <button onClick={handleClick}>close</button>
 
-                    
+                    {
+                        // userValidate && (
+                        // <Alert
+                        //     color={"error"}
+                        //     variant="filled"
+                        //     onClose={handleCloseAlert}
+                        // >
+                        //     <Typography color="danger" fontWeight="200">
+                        //         {userValidate}
+                        //     </Typography>
+                        // </Alert>
+
+                        // )
+                    }
+
+                    <Button onClick={handleClick} variant="outlined">
+                        Open Alert!
+                    </Button>
+                    <Dialog open={open} onClose={handleClick}>
+                        <Alert severity="error">
+                            <AlertTitle>Erro:</AlertTitle>
+                            conteúdo do alert
+                        </Alert>
+                    </Dialog>
+
+
                 </Grid>
 
             </form >
