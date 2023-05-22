@@ -1,7 +1,7 @@
 import "./style.css"
 import { FormEvent } from "react";
 
-export default function ButtonEntry(props:any) {
+export default function ButtonLogin(props:any) {
 
 
     function getValidateUserLogin(e: FormEvent) {

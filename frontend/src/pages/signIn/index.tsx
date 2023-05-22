@@ -1,16 +1,18 @@
 import "./style.css"
 import imgLogo from "../../assets/logo.jpeg"
 import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, AlertTitle } from "@mui/material"
-import ButtonEntry from "./button"
 import * as yup from 'yup';
-import { FormEvent, useState } from "react";
-import WarningIcon from '@mui/icons-material/Warning';
+import { FormEvent, useEffect, useState } from "react";
+import ButtonLogin from "../../components/buttonLogin"
+import AlertMessages from "../../components/AlertMessages"
 
 export default function SignIn() {
 
     const theme = useTheme();
 
-    const [open, setOpen] = useState(false);
+    useEffect(()=>{
+        validateInputs();
+    })
 
 
 
@@ -26,8 +28,6 @@ export default function SignIn() {
 
         validateInputs();
 
-        console.log(user.email)
-        console.log(user.password)
         //aqui vai logar
     }
 
@@ -53,14 +53,6 @@ export default function SignIn() {
             setUserValidate(err.errors);
         })
     }
-
-
-    const handleClick = () => {
-        setOpen(!open);
-    };
-
-
-
 
     return (
         <>
@@ -123,7 +115,6 @@ export default function SignIn() {
                             justifyContent: "center",
                             alignItems: "center",
                             width: "35vw",
-                            // backgroundColor: "#ff0",
 
                             [theme.breakpoints.only('xs')]: {
                                 width: "100vw",
@@ -169,8 +160,7 @@ export default function SignIn() {
 
 
                         <Grid item xs={12}>
-                            <ButtonEntry validate={userValidate} />
-                            <button onClick={handleLogin}>teste</button>
+                            <ButtonLogin validate={userValidate} />
                         </Grid>
 
                         <Typography color={"primary.main"}
@@ -206,38 +196,13 @@ export default function SignIn() {
 
                     </Grid>
 
-                    <button onClick={handleClick}>close</button>
-
-                    {
-                        // userValidate && (
-                        // <Alert
-                        //     color={"error"}
-                        //     variant="filled"
-                        //     onClose={handleCloseAlert}
-                        // >
-                        //     <Typography color="danger" fontWeight="200">
-                        //         {userValidate}
-                        //     </Typography>
-                        // </Alert>
-
-                        // )
-                    }
-
-                    <Button onClick={handleClick} variant="outlined">
-                        Open Alert!
-                    </Button>
-                    <Dialog open={open} onClose={handleClick}>
-                        <Alert severity="error">
-                            <AlertTitle>Erro:</AlertTitle>
-                            conteúdo do alert
-                        </Alert>
-                    </Dialog>
-
-
                 </Grid>
 
-            </form >
+            </form>
 
+            <AlertMessages validate={userValidate} />
+
+{/* <button onClick={validateInputs}>asdf</button> */}
 
 
         </>
