@@ -1,20 +1,14 @@
-import "./style.css"
+import "./styleButton.css"
 import imgLogo from "../../assets/logo.jpeg"
 import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, AlertTitle } from "@mui/material"
 import * as yup from 'yup';
 import { FormEvent, useEffect, useState } from "react";
-import ButtonLogin from "../../components/buttonLogin"
 import AlertMessages from "../../components/AlertMessages"
+
 
 export default function SignIn() {
 
     const theme = useTheme();
-
-    useEffect(()=>{
-        validateInputs();
-    })
-
-
 
     const [user, setUser] = useState({
         email: "",
@@ -22,13 +16,24 @@ export default function SignIn() {
     })
 
     const [userValidate, setUserValidate] = useState<any | string>(user.email)
+    const [validate, setValidate] = useState(false)
 
-    async function handleLogin(e: FormEvent) {
+
+    // useEffect(() => {
+    //     validateInputs();
+    // })
+
+    const handleLogin = (e: FormEvent) => {
         e.preventDefault();
 
         validateInputs();
 
-        //aqui vai logar
+        return <AlertMessages validate={userValidate}/>
+        
+
+        // console.log(userValidate)
+
+
     }
 
     async function validateInputs() {
@@ -44,14 +49,27 @@ export default function SignIn() {
                 .min(6, "A senha deve conter no mínimo 6 caracteres")
         })
 
-        await schema.validate({
+        const resultValidate = await schema.validate({
             email: user.email,
             password: user.password
         }).then((result) => {
-            setUserValidate(result)
+            // alert("Login efetuadooooo")
+            setValidate(true)
         }).catch((err) => {
             setUserValidate(err.errors);
+            
+            setValidate(false)
         })
+
+
+        // setUserValidate("okkkk")
+
+        if(resultValidate !== null){
+            alert("okkkk")
+        }else{
+            alert("asdfasdf")
+            return <AlertMessages validate={userValidate}/>
+        }
     }
 
     return (
@@ -160,7 +178,19 @@ export default function SignIn() {
 
 
                         <Grid item xs={12}>
-                            <ButtonLogin validate={userValidate} />
+
+                            <button onClick={handleLogin}>
+                                <div className="svg-wrapper-1">
+                                    <div className="svg-wrapper">
+                                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" fill="currentColor"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <span>Entrar</span>
+                            </button>
+
                         </Grid>
 
                         <Typography color={"primary.main"}
@@ -199,11 +229,6 @@ export default function SignIn() {
                 </Grid>
 
             </form>
-
-            <AlertMessages validate={userValidate} />
-
-{/* <button onClick={validateInputs}>asdf</button> */}
-
 
         </>
     )

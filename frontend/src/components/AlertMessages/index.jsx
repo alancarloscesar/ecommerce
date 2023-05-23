@@ -1,5 +1,5 @@
 import { Alert, Button, Dialog, AlertTitle, useTheme } from "@mui/material"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 // import useTheme from "@mui/material";
 
@@ -15,11 +15,16 @@ export default function AlertMessages(props) {
     const handleClick = () => {
         setOpen(true);
 
+        // console.log("alert abertoooo")
+
         setTimeout(() => {
             setOpen(false)
         }, 3000);
     };
 
+    useEffect(()=>{
+        handleClick();
+    })
 
 
 
