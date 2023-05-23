@@ -4,7 +4,7 @@ import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, Aler
 import * as yup from 'yup';
 import { FormEvent, useEffect, useState } from "react";
 import AlertMessages from "../../components/AlertMessages"
-import Teste from "../../components/teste"
+// import Teste from "../../components/teste"
 
 
 export default function SignIn() {
@@ -19,11 +19,12 @@ export default function SignIn() {
     const [userValidate, setUserValidate] = useState<any | string>(user.email)
     const [validate, setValidate] = useState(false)
 
-    const [showChildComponent, setShowChildComponent] = useState(false);
+    const [showAlertStatus, setshowAlertStatus] = useState(false);
 
     const handleLogin = (e: FormEvent) => {
         e.preventDefault();
-        setShowChildComponent(true);
+
+
 
         validateInputs();
 
@@ -34,6 +35,7 @@ export default function SignIn() {
     }
 
     async function validateInputs() {
+
         const schema = yup.object().shape({
             email: yup
                 .string()
@@ -43,31 +45,24 @@ export default function SignIn() {
             password: yup
                 .string()
                 .required("Campo senha obrigatório")
-                .min(6, "A senha deve conter no mínimo 6 caracteres")
+                .min(6, "A senha deve conter no mínimo 6 caracteres"),
         })
 
         await schema.validate({
-            email: user.email,
-            password: user.password
+            email: user?.email,
+            password: user?.password
         }).then((result) => {
             // alert("Login efetuadooooo")
-            setValidate(true)
+            // setValidate(true)
         }).catch((err) => {
-            setUserValidate(err.errors);
-            return <AlertMessages />
 
-            setValidate(false)
+            if (err.errors !== "") {
+                setshowAlertStatus(true);//status true para mostrar o alert
+                setUserValidate(err.errors)
+                return
+            }
         })
 
-
-        // setUserValidate("okkkk")
-
-        // if(resultValidate !== null){
-        //     alert("okkkk")
-        // }else{
-        //     alert("asdfasdf")
-        //     return <AlertMessages validate={userValidate}/>
-        // }
     }
 
     return (
@@ -228,8 +223,8 @@ export default function SignIn() {
 
             </form>
 
-            {showChildComponent && <AlertMessages />}
-            
+            {showAlertStatus && <AlertMessages validate={userValidate} />}
+
         </>
     )
 }

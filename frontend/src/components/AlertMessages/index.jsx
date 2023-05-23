@@ -1,16 +1,19 @@
 import { Alert, Button, Dialog, AlertTitle, useTheme } from "@mui/material"
-import {  useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 // import useTheme from "@mui/material";
 
 
-export default function AlertMessages() {
+export default function AlertMessages(props) {
 
 
     const [open, setOpen] = useState(true);
 
-    const theme = useTheme();
+    // const theme = useTheme();
 
+    useEffect(() => {
+        handleClick();
+    })
 
     const handleClick = () => {
         setOpen(true);
@@ -19,12 +22,9 @@ export default function AlertMessages() {
 
         setTimeout(() => {
             setOpen(false)
-        }, 3000);
+        }, 1000);
     };
 
-    useEffect(()=>{
-        handleClick();
-    })
 
 
 
@@ -49,9 +49,9 @@ export default function AlertMessages() {
                     severity="error"
                 >
                     <AlertTitle>Erro:</AlertTitle>
-{/* 
-                    {props?.validate} */}
-                    testando meu alert....
+
+                    {props?.validate}
+                    {/* testando meu alert.... */}
 
                     <CloseRoundedIcon fontSize="small"
                         sx={{
