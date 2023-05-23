@@ -4,6 +4,7 @@ import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, Aler
 import * as yup from 'yup';
 import { FormEvent, useEffect, useState } from "react";
 import AlertMessages from "../../components/AlertMessages"
+import Teste from "../../components/teste"
 
 
 export default function SignIn() {
@@ -18,18 +19,14 @@ export default function SignIn() {
     const [userValidate, setUserValidate] = useState<any | string>(user.email)
     const [validate, setValidate] = useState(false)
 
-
-    // useEffect(() => {
-    //     validateInputs();
-    // })
+    const [showChildComponent, setShowChildComponent] = useState(false);
 
     const handleLogin = (e: FormEvent) => {
         e.preventDefault();
+        setShowChildComponent(true);
 
         validateInputs();
 
-        return <AlertMessages validate={userValidate}/>
-        
 
         // console.log(userValidate)
 
@@ -49,7 +46,7 @@ export default function SignIn() {
                 .min(6, "A senha deve conter no mínimo 6 caracteres")
         })
 
-        const resultValidate = await schema.validate({
+        await schema.validate({
             email: user.email,
             password: user.password
         }).then((result) => {
@@ -57,19 +54,20 @@ export default function SignIn() {
             setValidate(true)
         }).catch((err) => {
             setUserValidate(err.errors);
-            
+            return <AlertMessages />
+
             setValidate(false)
         })
 
 
         // setUserValidate("okkkk")
 
-        if(resultValidate !== null){
-            alert("okkkk")
-        }else{
-            alert("asdfasdf")
-            return <AlertMessages validate={userValidate}/>
-        }
+        // if(resultValidate !== null){
+        //     alert("okkkk")
+        // }else{
+        //     alert("asdfasdf")
+        //     return <AlertMessages validate={userValidate}/>
+        // }
     }
 
     return (
@@ -230,6 +228,8 @@ export default function SignIn() {
 
             </form>
 
+            {showChildComponent && <AlertMessages />}
+            
         </>
     )
 }

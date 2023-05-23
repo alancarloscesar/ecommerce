@@ -1,13 +1,13 @@
 import { Alert, Button, Dialog, AlertTitle, useTheme } from "@mui/material"
-import { useEffect, useState } from "react";
+import {  useState, useEffect } from "react";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 // import useTheme from "@mui/material";
 
 
-export default function AlertMessages(props) {
+export default function AlertMessages() {
 
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const theme = useTheme();
 
@@ -31,9 +31,9 @@ export default function AlertMessages(props) {
 
     return (
         <>
-            <Button onClick={handleClick} variant="contained">
+            {/* <Button onClick={handleClick} variant="contained">
                 Open Alert!
-            </Button>
+            </Button> */}
             <Dialog open={open} onClose={handleClick}
                 sx={{
                     display: "flex",
@@ -49,8 +49,9 @@ export default function AlertMessages(props) {
                     severity="error"
                 >
                     <AlertTitle>Erro:</AlertTitle>
-
-                    {props?.validate}
+{/* 
+                    {props?.validate} */}
+                    testando meu alert....
 
                     <CloseRoundedIcon fontSize="small"
                         sx={{
