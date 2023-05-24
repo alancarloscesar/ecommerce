@@ -1,15 +1,18 @@
 import "./styleButton.css"
-import imgLogo from "../../assets/logo.jpeg"
 import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, AlertTitle } from "@mui/material"
 import * as yup from 'yup';
 import { FormEvent, useEffect, useState } from "react";
 import AlertMessages from "../../components/AlertMessages"
-import Teste from "../../components/teste"
+import HeaderUser from "../../components/HeaderUser";
+// import Teste from "../../components/teste"
+import ModalForgotPassword from "../../components/ModalForgotPassword"
 
 
 export default function SignIn() {
 
     const theme = useTheme();
+
+    const [showModal, setShowModal] = useState(false)
 
     const [user, setUser] = useState({
         email: "",
@@ -17,13 +20,13 @@ export default function SignIn() {
     })
 
     const [userValidate, setUserValidate] = useState<any | string>(user.email)
-    const [validate, setValidate] = useState(false)
 
-    const [showChildComponent, setShowChildComponent] = useState(false);
+    const [showAlertStatus, setshowAlertStatus] = useState(false);
 
     const handleLogin = (e: FormEvent) => {
         e.preventDefault();
-        setShowChildComponent(true);
+
+
 
         validateInputs();
 
@@ -34,6 +37,7 @@ export default function SignIn() {
     }
 
     async function validateInputs() {
+
         const schema = yup.object().shape({
             email: yup
                 .string()
@@ -43,63 +47,29 @@ export default function SignIn() {
             password: yup
                 .string()
                 .required("Campo senha obrigatório")
-                .min(6, "A senha deve conter no mínimo 6 caracteres")
+                .min(6, "A senha deve conter no mínimo 6 caracteres"),
         })
 
         await schema.validate({
-            email: user.email,
-            password: user.password
+            email: user?.email,
+            password: user?.password
         }).then((result) => {
             // alert("Login efetuadooooo")
-            setValidate(true)
+            // setValidate(true)
         }).catch((err) => {
-            setUserValidate(err.errors);
-            return <AlertMessages />
 
-            setValidate(false)
+            if (err.errors !== "") {
+                setshowAlertStatus(true);//status true para mostrar o alert
+                setUserValidate(err.errors)
+                return
+            }
         })
 
-
-        // setUserValidate("okkkk")
-
-        // if(resultValidate !== null){
-        //     alert("okkkk")
-        // }else{
-        //     alert("asdfasdf")
-        //     return <AlertMessages validate={userValidate}/>
-        // }
     }
 
     return (
         <>
-            <Grid container
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    minHeight: "20vh",
-                    width: "100vw",
-                    backgroundColor: "rgb(51,26,92)",
-                    background: "linear-gradient(90deg, rgba(51,26,92,1) 0%, rgba(74,43,126,1) 65%, rgba(96,59,158,1) 100%)"
-                }}
-
-                xl={12}
-            >
-
-                <Box sx={{
-                    [theme.breakpoints.only('xs')]: {
-                        display: "none"
-                    },
-                }}>
-                    <img src={imgLogo}
-                        id="img"
-                        alt="img logo"
-                        width={150}
-                        height={150}
-                        style={{ paddingLeft: 20 }}
-                    />
-                </Box>
-            </Grid >
+            <HeaderUser />
 
             <form>
                 <Grid container sx={{
@@ -197,9 +167,11 @@ export default function SignIn() {
                                     textDecoration: "underline"
                                 }
                             }}>
-                            <a href="/contato" target="_blank"
+                            {/* <a href="/contato" target="_blank" */}
+                            <a onClick={() => setShowModal(true)}
                                 style={{
                                     textDecoration: "none",
+                                    cursor: "pointer"
                                 }}>
                                 Esqueceu a senha?
                             </a>
@@ -213,7 +185,7 @@ export default function SignIn() {
                                     textDecoration: "underline"
                                 }
                             }}>
-                            <a href="/contato" target="_blank"
+                            <a href="/signup" target="_blank"
                                 style={{
                                     textDecoration: "none",
                                     color: "secondary"
@@ -228,8 +200,10 @@ export default function SignIn() {
 
             </form>
 
-            {showChildComponent && <AlertMessages />}
-            
+
+            {showModal && <ModalForgotPassword />}
+            {showAlertStatus && <AlertMessages validate={userValidate} />}
+
         </>
     )
 }
