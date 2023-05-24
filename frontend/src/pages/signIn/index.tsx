@@ -1,11 +1,12 @@
 import "./styleButton.css"
-import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, AlertTitle } from "@mui/material"
+import { Grid, TextField, useTheme, Typography, Box, Alert, Button, Dialog, AlertTitle, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from "@mui/material"
 import * as yup from 'yup';
 import { FormEvent, useEffect, useState } from "react";
 import AlertMessages from "../../components/AlertMessages"
 import HeaderUser from "../../components/HeaderUser";
 // import Teste from "../../components/teste"
 import ModalForgotPassword from "../../components/ModalForgotPassword"
+import { VisibilityOff, Visibility } from "@mui/icons-material";
 
 
 export default function SignIn() {
@@ -22,6 +23,12 @@ export default function SignIn() {
     const [userValidate, setUserValidate] = useState<any | string>(user.email)
 
     const [showAlertStatus, setshowAlertStatus] = useState(false);
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //   event.preventDefault();
+    // };
 
     const handleLogin = (e: FormEvent) => {
         e.preventDefault();
@@ -117,7 +124,7 @@ export default function SignIn() {
                         <Grid item xs={12}>
                             <TextField
                                 id="standard-search"
-                                label="Email: "
+                                label="Email:"
                                 type="email"
                                 variant="outlined"
                                 value={user.email}
@@ -125,13 +132,12 @@ export default function SignIn() {
 
                                 sx={{
                                     width: "100%",
-
                                 }}
                             />
                         </Grid>
 
                         <Grid item xs={12}>
-                            <TextField
+                            {/* <TextField
                                 id="standard-search"
                                 label="Senha: "
                                 type="password"
@@ -141,7 +147,29 @@ export default function SignIn() {
                                 sx={{
                                     width: "100%"
                                 }}
-                            />
+                            /> */}
+
+                            <FormControl sx={{ width: '100%' }} variant="outlined">
+                                <InputLabel>Senha:</InputLabel>
+                                <OutlinedInput
+                                    value={user.password}
+                                    onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end" sx={{'&:hover':{backgroundColor:"#f00"}}}>
+                                            <IconButton
+                                                aria-label="Password"
+                                                onClick={handleClickShowPassword}
+                                                // onMouseDown={handleMouseDownPassword}
+                                                // edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Senha:"
+                                />
+                            </FormControl>
                         </Grid>
 
 
@@ -201,9 +229,9 @@ export default function SignIn() {
             </form>
 
 
+
             {showModal && <ModalForgotPassword />}
             {showAlertStatus && <AlertMessages validate={userValidate} />}
-
         </>
     )
 }

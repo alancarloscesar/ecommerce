@@ -12,23 +12,23 @@ export default function HeaderUser(){
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    height: "20vh",
+                    height: "25vh",
                     width: "100vw",
                     backgroundColor: "rgb(51,26,92)",
                     background: "linear-gradient(90deg, rgba(51,26,92,1) 0%, rgba(74,43,126,1) 65%, rgba(96,59,158,1) 100%)",
                     // marginBottom: "15vw",
 
                     [theme.breakpoints.only('sm')]: {
-                        marginBottom: "15vh",
-                        height: "20vh",
+                        // marginBottom: "15vh",
+                        height: "25vh",
                     },
                     [theme.breakpoints.only('xs')]: {
-                        marginBottom: "16vh",
+                        // marginBottom: "16vh",
                         height: "15vh",
                     },
                 }}
 
-                xl={12}
+                // xl={12}
             >
 
                 <Box sx={{
