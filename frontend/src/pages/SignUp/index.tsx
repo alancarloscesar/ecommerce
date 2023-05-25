@@ -1,6 +1,7 @@
-import { Button, Grid, TextField, Stack, Typography, useTheme } from "@mui/material"
+import { Button, Grid, TextField, Stack, Typography, useTheme, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput } from "@mui/material"
 import { useState } from "react"
 import HeaderUser from "../../components/HeaderUser"
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function SignUp() {
 
@@ -16,6 +17,9 @@ export default function SignUp() {
         password: "",
         passwordRepeat: ""
     })
+
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     return (
         <>
@@ -68,7 +72,7 @@ export default function SignUp() {
                         },
                     }}
                 >
-                    <Typography sx={{color:"#a3a2a2"}}>Dados Iniciais</Typography>
+                    <Typography sx={{ color: "#a3a2a2" }}>Dados Iniciais</Typography>
                     <Grid container xs={12} p={2} spacing={2}>
                         <Grid item xs={12} sm={12} md={8} lg={8}>
                             <TextField
@@ -99,7 +103,7 @@ export default function SignUp() {
                         </Grid>
                     </Grid>
 
-                    <Typography sx={{color:"#a3a2a2"}}>Dados Numéricos</Typography>
+                    <Typography sx={{ color: "#a3a2a2" }}>Dados Numéricos</Typography>
                     <Grid container xs={12} p={2} spacing={2}>
                         <Grid item xs={12} sm={12} md={4} lg={5}>
                             <TextField
@@ -142,7 +146,7 @@ export default function SignUp() {
                         </Grid>
                     </Grid>
 
-                    <Typography sx={{color:"#a3a2a2"}}>Seu melhor E-mail</Typography>
+                    <Typography sx={{ color: "#a3a2a2" }}>Seu melhor E-mail</Typography>
                     <Grid container xs={12} p={2} spacing={2}>
                         <Grid item xs={12} sm={12} md={12} lg={12}>
                             <TextField
@@ -159,33 +163,53 @@ export default function SignUp() {
                         </Grid>
                     </Grid>
 
-                    <Typography sx={{color:"#a3a2a2"}}>Dados Sigilosos</Typography>
+                    <Typography sx={{ color: "#a3a2a2" }}>Dados Sigilosos</Typography>
                     <Grid container xs={12} p={2} spacing={2}>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <TextField
-                                label="Senha: "
-                                type="password"
-                                variant="outlined"
-                                value={user.password}
-                                onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
-                                sx={{
-                                    width: "100%",
-
-                                }}
-                            />
+                            <FormControl sx={{ width: '100%' }} variant="outlined">
+                                <InputLabel>Senha:</InputLabel>
+                                <OutlinedInput
+                                    value={user.password}
+                                    onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="Password"
+                                                onClick={handleClickShowPassword}
+                                                // onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Senha:"
+                                />
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <TextField
-                                label="Repita a Senha: "
-                                type="password"
-                                variant="outlined"
-                                value={user.passwordRepeat}
-                                onChange={(e) => setUser((prev) => ({ ...prev, passwordRepeat: e.target.value }))}
-                                sx={{
-                                    width: "100%",
-
-                                }}
-                            />
+                        <FormControl sx={{ width: '100%' }} variant="outlined">
+                                <InputLabel>Repita a senha:</InputLabel>
+                                <OutlinedInput
+                                    value={user.passwordRepeat}
+                                    onChange={(e) => setUser((prev) => ({ ...prev, passwordRepeat: e.target.value }))}
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="Password-repeat"
+                                                onClick={handleClickShowPassword}
+                                            // onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Repita a senha:"
+                                />
+                            </FormControl>
                         </Grid>
                     </Grid>
 

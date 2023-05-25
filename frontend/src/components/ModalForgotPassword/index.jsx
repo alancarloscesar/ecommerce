@@ -27,7 +27,7 @@ export default function ModalForgotPassword() {
     };
 
     return (
-        <div>
+        <>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Open form dialog
             </Button>
@@ -52,6 +52,7 @@ export default function ModalForgotPassword() {
                             <DialogContentText
                                 textAlign={'justify'}
                                 p={3}
+                                color={"#616161"}
 
                                 sx={{
                                     [theme.breakpoints.only('xs')]: {
@@ -100,6 +101,6 @@ export default function ModalForgotPassword() {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }
