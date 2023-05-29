@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import AlertMessages from "../../components/AlertMessages"
 import HeaderUser from "../../components/HeaderUser";
 import ModalForgotPassword from "../../components/ModalForgotPassword"
+import styled from "styled-components"
 
 
 
@@ -183,7 +184,7 @@ export default function SignIn() {
                                 }
                             }}>
                             {/* <a href="/contato" target="_blank" */}
-                            {/* <a onClick={() => setShowModal(true)}
+            {/* <a onClick={() => setShowModal(true)}
                                 style={{
                                     textDecoration: "none",
                                     cursor: "pointer"
@@ -219,7 +220,7 @@ export default function SignIn() {
             {showModal && <ModalForgotPassword />}
             {showAlertStatus && <AlertMessages validate={userValidate} />}
 
-            
+
 
         </>
     )
