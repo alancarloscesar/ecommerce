@@ -1,11 +1,8 @@
-import { Button, Grid, TextField, Stack, Typography, useTheme, InputAdornment, IconButton, FormControl, InputLabel, OutlinedInput } from "@mui/material"
 import { useState } from "react"
 import HeaderUser from "../../components/HeaderUser"
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function SignUp() {
 
-    const theme = useTheme();
 
     const [user, setUser] = useState({
         name: "",
@@ -26,7 +23,7 @@ export default function SignUp() {
 
             <HeaderUser />
 
-            <Stack
+            {/* <Stack
                 display={"flex"}
                 flexDirection={"column"}
                 justifyContent={"center"}
@@ -239,7 +236,7 @@ export default function SignUp() {
 
                 </Grid>
 
-            </Stack>
+            </Stack> */}
 
         </>
     )

@@ -1,19 +1,15 @@
 import "./styleButton.css"
-import { Grid, TextField, useTheme, Typography, Button, IconButton, FormControl, InputLabel, OutlinedInput, InputAdornment } from "@mui/material"
 import * as yup from 'yup';
 import { FormEvent, useState } from "react";
 import AlertMessages from "../../components/AlertMessages"
 import HeaderUser from "../../components/HeaderUser";
-// import Teste from "../../components/teste"
 import ModalForgotPassword from "../../components/ModalForgotPassword"
 
-import { FaAccusoft, FaAddressCard } from 'react-icons/fa';
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 
 
 export default function SignIn() {
 
-    const theme = useTheme();
 
     const [showModal, setShowModal] = useState(false)
 
@@ -77,7 +73,7 @@ export default function SignIn() {
         <>
             <HeaderUser />
 
-            <form>
+            {/* <form>
                 <Grid container sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -187,7 +183,7 @@ export default function SignIn() {
                                 }
                             }}>
                             {/* <a href="/contato" target="_blank" */}
-                            <a onClick={() => setShowModal(true)}
+                            {/* <a onClick={() => setShowModal(true)}
                                 style={{
                                     textDecoration: "none",
                                     cursor: "pointer"
@@ -217,7 +213,7 @@ export default function SignIn() {
 
                 </Grid>
 
-            </form>
+            </form> */}
 
 
             {showModal && <ModalForgotPassword />}

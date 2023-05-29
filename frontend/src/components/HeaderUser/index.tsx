@@ -1,13 +1,12 @@
-import {Grid, Box, useTheme} from "@mui/material"
+
 import imgLogo from "../../assets/logo.jpeg"
 
 export default function HeaderUser(){
 
-    const theme = useTheme();
 
     return(
         <>
-         <Grid container
+         {/* <Grid container
                 sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -44,7 +43,7 @@ export default function HeaderUser(){
                         style={{ paddingLeft: 20 }}
                     />
                 </Box>
-            </Grid >
+            </Grid > */}
         
         </>
     )

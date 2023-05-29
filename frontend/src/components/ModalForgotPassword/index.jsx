@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Divider, Grid, useTheme } from '@mui/material';
+
 import sendEmail from "../../assets/mailsend.gif"
 
 export default function ModalForgotPassword() {
     const [open, setOpen] = useState(false);
     const [email, setEmail] = useState("")
 
-    const theme = useTheme()
+
     useEffect(()=>{
         handleClickOpen()
     },[])
@@ -28,7 +21,7 @@ export default function ModalForgotPassword() {
 
     return (
         <>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            {/* <Button variant="outlined" onClick={handleClickOpen}>
                 Open form dialog
             </Button>
             <Dialog open={open} onClose={handleClose}>
@@ -100,7 +93,7 @@ export default function ModalForgotPassword() {
                         Recuperar Senha
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
         </>
     );
 }
