@@ -39,6 +39,8 @@ export const InputLogin = styled.input`
   font-size: 16px;
   border-radius: 7px;
   margin-bottom: 5%;
+  /* background-color: ${props => props.theme.colors.background}; */
+  background-color: ${props => props.theme.colors.primary};
 `;
 
 export const FooterLogin = styled.section`
