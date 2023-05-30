@@ -1,11 +1,10 @@
 import "./styleButton.css"
 import * as yup from 'yup';
 import { FormEvent, useState } from "react";
-import AlertMessages from "../../components/AlertMessages"
 import HeaderUser from "../../components/HeaderUser";
-import ModalForgotPassword from "../../components/ModalForgotPassword"
-import styled from "styled-components"
-
+// import AlertMessages from "../../components/AlertMessages"
+// import ModalForgotPassword from "../../components/ModalForgotPassword"
+import { Container, FooterLogin, ForgotPassword, FormLogin, InputLogin, SignUp, Title } from "./styled"
 
 
 
@@ -73,6 +72,51 @@ export default function SignIn() {
     return (
         <>
             <HeaderUser />
+
+            <Container>
+                <Title>Olá, Bem-vindo à nossa plataforma =)</Title>
+
+                <FormLogin>
+                    <InputLogin
+                        type="email"
+                        required
+                        placeholder="Email"
+                        value={user.email}
+                        onChange={(e) => setUser((prev) => ({ ...prev, email: e.target.value }))}
+                    />
+                    <InputLogin
+                        type="password"
+                        required
+                        placeholder="Senha"
+                        value={user.password}
+                        onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
+                    />
+
+                    <button onClick={handleLogin}>
+                        <div className="svg-wrapper-1">
+                            <div className="svg-wrapper">
+                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <span>Entrar</span>
+                    </button>
+
+                    <FooterLogin>
+
+                        <ForgotPassword href="/contato" target="_blank">
+                            Esqueceu a senha?
+                        </ForgotPassword>
+
+                        <SignUp href="/signUp">
+                            Criar conta
+                        </SignUp>
+
+                    </FooterLogin>
+                </FormLogin>
+            </Container>
 
             {/* <form>
                 <Grid container sx={{
